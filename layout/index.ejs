@@ -32,6 +32,23 @@
   <% } %>
 </section>
 
+<section id="memos">
+  <span class="h1"><a href="<%- url_for(theme.nav.memos || '/memos/') %>">Memos</a></span>
+  <ul class="post-list">
+    <% var memos = site.posts.filter(function(post) {
+      return post.layout === 'talk';
+    }).sort('date', 'desc').limit(5); %>
+    <% memos.each(function(post, i){ %>
+      <li class="post-item">
+        <div class="meta">
+          <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YY/M/D HH:mm') %></time>
+        </div>
+        <span><%- post.content %></span>
+      </li>
+    <% }); %>
+  </ul>
+</section>
+
 <section id="writing">
   <span class="h1"><a href="<%- url_for(theme.nav.articles) %>"><%= __('index.articles') %></a></span>
   <% if (theme.tags_overview && site.tags.length) { %>
@@ -46,7 +63,9 @@
     <% if (theme.posts_overview.show_all_posts) { %>
       <% var show_posts = page.posts.sort(field_sort, 'desc') %>
     <% } else { %>
-      <% var show_posts = site.posts.sort(field_sort, 'desc').limit(theme.posts_overview.post_count || 5) %>
+      <% var show_posts = site.posts.filter(function(post) {
+        return post.layout !== 'talk';
+      }).sort(field_sort, 'desc').limit(theme.posts_overview.post_count || 5) %>
     <% } %>
     <% show_posts.each(function(post, i){ %>
       <li class="post-item">
@@ -59,16 +78,3 @@
     <%- partial('_partial/pagination') %>
   <% } %>
 </section>
-
-<% if (site.data.projects) { %>
-<section id="projects">
-  <span class="h1"><a href="<%- url_for(theme.projects_url) %>"><%= __('index.projects') %></a></span>
-  <ul class="project-list">
-    <% for(var obj in site.data.projects){ %>
-      <li class="project-item">
-        <a href="<%= site.data.projects[obj].url %>"><%= site.data.projects[obj].name %></a>: <%- markdown(site.data.projects[obj].desc) %>
-      </li>
-    <% } %>
-  </ul>
-</section>
-<% } %>

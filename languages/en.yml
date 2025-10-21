@@ -2,10 +2,12 @@ nav:
   home: Home
   about: About
   articles: Writing
+  memos: Memos
   tag: Tag
   category: Category
   projects: Projects
   search: Search
+  rss: RSS
 
 icons:
   menu: Menu

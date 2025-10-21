@@ -3,7 +3,13 @@
     <% var year = 0 %>
     <% var change = false %>
     <% var field_sort = theme.archive.sort_updated ? 'updated' : 'date' %>
-    <% page.posts.sort(field_sort, 'desc').each(function(post) { %>
+    <% 
+    // 过滤掉 memos（layout 为 'talk' 的文章），只显示普通文章
+    var articles = page.posts.filter(function(post) {
+      return post.layout !== 'talk';
+    }).sort(field_sort, 'desc');
+    
+    articles.each(function(post) { %>
       <% var itemYear = date(post[field_sort], 'YYYY') %>
       <% change = year !== itemYear %>
       <% year = change ? itemYear : year %>

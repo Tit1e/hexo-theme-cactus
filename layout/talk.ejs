@@ -1,0 +1,40 @@
+<article id="memo" class="h-entry article article-type-memo" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    <header class="article-header">
+      <div class="article-meta">
+        <time datetime="<%= date_xml(page.date) %>" class="dt-published" itemprop="datePublished">
+          <%= date(page.date, 'YY/M/D HH:mm') %>
+        </time>
+      </div>
+    </header>
+    <div class="e-content article-entry" itemprop="articleBody">
+      <%- page.content %>
+    </div>
+  </div>
+  <nav id="article-nav">
+    <% if (page.prev) { %>
+      <a href="<%- url_for(page.prev.path) %>" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"><%= __('post.desktop.previous') %></strong>
+        <div class="article-nav-title">
+          <% if (page.prev.title) { %>
+            <%= page.prev.title %>
+          <% } else { %>
+            <%= date(page.prev.date, 'YY/M/D HH:mm') %>
+          <% } %>
+        </div>
+      </a>
+    <% } %>
+    <% if (page.next) { %>
+      <a href="<%- url_for(page.next.path) %>" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"><%= __('post.desktop.next') %></strong>
+        <div class="article-nav-title">
+          <% if (page.next.title) { %>
+            <%= page.next.title %>
+          <% } else { %>
+            <%= date(page.next.date, 'YY/M/D HH:mm') %>
+          <% } %>
+        </div>
+      </a>
+    <% } %>
+  </nav>
+</article>

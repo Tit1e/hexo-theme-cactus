@@ -1,0 +1,27 @@
+<div id="memos-page">
+  <h1><%= page.title || 'Memos' %></h1>
+  <ul class="post-list">
+    <% page.posts.each(function(post) { %>
+      <li class="post-item">
+        <div class="meta">
+          <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YY/M/D HH:mm') %></time>
+        </div>
+        <span><%- post.content %></span>
+      </li>
+    <% }); %>
+  </ul>
+  
+  <% if (page.total > 1) { %>
+  <nav id="page-nav">
+    <% if (page.prev !== 0) { %>
+      <a class="extend prev" rel="prev" href="<%- url_for(page.prev_link) %>">&laquo; Prev</a>
+    <% } %>
+    
+    <span class="page-number">Page <%= page.current %> of <%= page.total %></span>
+    
+    <% if (page.next !== 0) { %>
+      <a class="extend next" rel="next" href="<%- url_for(page.next_link) %>">Next &raquo;</a>
+    <% } %>
+  </nav>
+  <% } %>
+</div>

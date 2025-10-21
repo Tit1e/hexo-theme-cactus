@@ -53,10 +53,10 @@
     <%- partial('./google_analytics.ejs') %>
     <%- partial('./umami_analytics.ejs') %>
     <!-- styles -->
-    <%- css('css/style') %>
+    <%- css_v('css/style') %>
     <!-- persian styles -->
     <% if (theme.direction && theme.direction === 'rtl') { %>
-      <%- css('css/rtl') %>
+      <%- css_v('css/rtl') %>
     <% } %>
     <!-- rss -->
     <% if (theme.rss === '' && config.feed && config.feed.path) { %>
